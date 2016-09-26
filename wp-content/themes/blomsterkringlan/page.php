@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<article id="frontpage">
+<article id="blogg">
 
 <?php if(have_posts()){
 
@@ -8,12 +8,13 @@
 
 			?>
 
-<div class="banner"  style="background-image:url('<?php bloginfo('template_url');?>/img/banner.jpeg');">
+<div class="banner"  style="background-image:url('<?php the_post_thumbnail_url('full');?>');">
 <div class="overlay"></div>
-	</div>
 	<div class="container">
-		<div class="bot_textarea">
+
+		<div class="textarea">
 	<div class="text-center">
+
 
 
 			<?php
@@ -30,9 +31,13 @@
 
 
 	}?>
+
 		</div>
 	</div>
 	</div>
 
+	</div>
+
 </article>
+
 <?php get_footer(); ?>

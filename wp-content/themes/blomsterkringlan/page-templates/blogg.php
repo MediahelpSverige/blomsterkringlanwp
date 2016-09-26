@@ -43,16 +43,30 @@
 			while ($my_query->have_posts()) {
 			$my_query->the_post();
 ?>
+<div class="blogg-item">
+
+
+
 			<img src="<?php the_post_thumbnail_url('medium');?>"/>
 
 			<?php
 
-			the_title();
+			the_title('<h3>','</h3>');
+			?>
 
-			the_excerpt();
+			<p><?php echo get_the_date(); ?></p>
+
+			<?php the_excerpt(); ?>
+
+
+			<i class="fa fa-leaf" aria-hidden="true"></i>
+
+			</div>
+			<?php
 		}
 
 			?>
+
 
 
 

@@ -5,6 +5,10 @@ body {
   background-color: #c4cca6;
 }
 
+.read-more {
+  display: block;
+}
+
 .page-wrap {
   max-width: 1300px;
   margin: auto;
@@ -12,7 +16,7 @@ body {
 }
 
 header {
-  background-color: #868f62;
+  background-color: #c6d299;
   z-index: 999;
   position: absolute;
   top: 0px;
@@ -42,7 +46,8 @@ header .logo_cont h1 {
   margin: 10px 0px;
   margin-top: 0px;
   padding-top: 10px;
-  font-size: 70px;
+  font-weight: bold;
+  font-size: 90px;
   line-height: 60px;
 }
 
@@ -84,6 +89,13 @@ header nav ul a {
 .textarea .text-center {
   width: 70%;
   margin: auto;
+  padding: 50px 0px;
+}
+
+.textarea .text-center img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .textarea .text-center p {
@@ -95,7 +107,7 @@ header nav ul a {
   width: 100%;
   position: relative;
   background-color: white;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #single .banner {
@@ -113,7 +125,7 @@ header nav ul a {
 
 #single .bot_textarea {
   position: absolute;
-  bottom: 0px;
+  bottom: 100px;
   background-color: white;
   max-width: 900px;
   padding: 20px;
@@ -133,7 +145,7 @@ header nav ul a {
 }
 
 #single .bot_textarea a {
-  color: #868f62;
+  color: #c6d299;
   display: block;
   text-align: center;
   position: relative;
@@ -169,18 +181,25 @@ header nav ul a {
 }
 
 article {
-  height: 100vh;
+  min-height: 100vh;
   background-size: cover;
   width: 100%;
   position: relative;
 }
 
 article .banner {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 article .textarea {
-  margin-top: 133px;
+  margin-top: 193px;
+  margin-bottom: 193px;
+  border: 1px solid #eaeaea;
+  border-radius: 3px;
+}
+
+article .map iframe {
+  width: 100%;
 }
 
 #frontpage {
@@ -191,7 +210,7 @@ article .textarea {
 }
 
 #frontpage .banner {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #frontpage .overlay {
@@ -205,7 +224,7 @@ article .textarea {
 
 #frontpage .bot_textarea {
   position: absolute;
-  bottom: 0px;
+  bottom: 100px;
   background-color: white;
   max-width: 900px;
   padding: 20px;
@@ -225,7 +244,7 @@ article .textarea {
 }
 
 #frontpage .bot_textarea a {
-  color: #868f62;
+  color: #c6d299;
   display: block;
   text-align: center;
   position: relative;
@@ -258,4 +277,45 @@ article .textarea {
   margin: auto;
   display: block;
   background-color: black;
+}
+
+#blogg .blogg-item {
+  margin: 90px 0px;
+}
+
+#blogg .blogg-item a {
+  display: block;
+  color: #13bd13;
+  font-size: 19px;
+  margin: 20px auto;
+}
+
+#blogg .blogg-item i {
+  font-size: 25px;
+  color: #13bd13;
+  display: block;
+  margin: 20px auto;
+}
+
+#blogg .blogg-item img {
+  margin: 20px auto;
+}
+
+#kontakt .textarea .text-center {
+  text-align: left;
+}
+
+body footer {
+  background-color: #c6d299;
+}
+
+body footer a {
+  color: black;
+}
+
+body footer .container {
+  display: flex;
+  flex-direction: row;
+  padding: 30px 0px;
+  justify-content: space-around;
 }
