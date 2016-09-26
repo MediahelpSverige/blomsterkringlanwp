@@ -13,92 +13,107 @@
  *
  * @package WordPress
  */
- 
-// Include local configuration
-if (file_exists(dirname(__FILE__) . '/local-config.php')) {
-	include(dirname(__FILE__) . '/local-config.php');
-}
-
-// Global DB config
-if (!defined('DB_NAME')) {
-	define('DB_NAME', 'blomsterkringlan');
-}
-if (!defined('DB_USER')) {
-	define('DB_USER', 'root');
-}
-if (!defined('DB_PASSWORD')) {
-	define('DB_PASSWORD', '');
-}
-if (!defined('DB_HOST')) {
-	define('DB_HOST', 'localhost');
-}
-
-/** Database Charset to use in creating database tables. */
-if (!defined('DB_CHARSET')) {
-	define('DB_CHARSET', 'utf8');
-}
-
-/** The Database Collate type. Don't change this if in doubt. */
-if (!defined('DB_COLLATE')) {
-	define('DB_COLLATE', '');
-}
-
-/**#@+
- * Authentication Unique Keys and Salts.
- *
- * Change these to different unique phrases!
- * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
- * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
- *
- * @since 2.6.0
- */
-define('AUTH_KEY',         '>]-Me3L[ @RC4l~@r~$D2[8[.tx6~<l8+N+T:F;iNsDI| sV$|+on:z9,! c,2w{');
-define('SECURE_AUTH_KEY',  'DKuT|R+g@v#S/{x]lYHNr3~DSf7Po--;QR!)j%;;/JSLVZqm}{aHj%zz{vu `.l=');
-define('LOGGED_IN_KEY',    'Fgy+mP/^|w|-zg]%d2w,(<fM+Eznugb|QwvFB/:tK:-mF)O4~-UvT`.x/yb9x/K)');
-define('NONCE_KEY',        '|-8!]kAg=-,E,[N|*+i$I~5(HPDw->9oZc^S~%&sEc^!67E^HNb|P02:|oW`~k0v');
-define('AUTH_SALT',        '(b5ib[d%3+m7m/Su,z{#Qw||RB/@wxO4C:G$-ygz]Vov_n(Ut{{ePP*|hF~msqZW');
-define('SECURE_AUTH_SALT', 'l{+gN|sUkSJ}J!>OZ+2atwLR%N*U53D)A+BO%_L=@ITn,hwH{~~>QQh:6=_s|onI');
-define('LOGGED_IN_SALT',   ',%b^uHqu5&J5PW.z!Hz63;-7FFd?90^%u?97X_.fY6 IcUF=7jgLI[yK0MqW%_(6');
-define('NONCE_SALT',       '6(no+,7 KSv)4d?6@sBBAY)|8Bb5]8+ea&w0k8494SJ/#`/-=K`d:2fy*a3Jb(%&');
-
-/**#@-*/
-
-/**
- * WordPress Database Table prefix.
- *
- * You can have multiple installations in one database if you give each a unique
- * prefix. Only numbers, letters, and underscores please!
- */
-$table_prefix  = 'wp_';
-
-/**
- * WordPress Localized Language, defaults to English.
- *
- * Change this to localize WordPress. A corresponding MO file for the chosen
- * language must be installed to wp-content/languages. For example, install
- * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
- * language support.
- */
-define('WPLANG', '');
-
 
 
 /**
- * For developers: WordPress debugging mode.
- *
- * Change this to true to enable the display of notices during development.
- * It is strongly recommended that plugin and theme developers use WP_DEBUG
- * in their development environments.
+ * WordPress Multi-Environment Config
+ * 
+ * Loads config file based on current environment, environment can be set
+ * in either the environment variable 'WP_ENV' or can be set based on the 
+ * server hostname.
+ * 
+ * This also overrides the option_home and option_siteurl settings in the 
+ * WordPress database to ensure site URLs are correct between environments.
+ * 
+ * Common environment names are as follows, though you can use what you wish:
+ * 
+ *   production
+ *   staging
+ *   development
+ * 
+ * For each environment a config file must exist named wp-config.{environment}.php
+ * with any settings specific to that environment. For example a development 
+ * environment would use the config file: wp-config.development.php
+ * 
+ * Default settings that are common to all environments can exist in wp-config.default.php
+ * 
+ * @package    Studio 24 WordPress Multi-Environment Config
+ * @version    1.0.1
+ * @author     Studio 24 Ltd  <info@studio24.net>
  */
-if (!defined('WP_DEBUG')) {
-	define('WP_DEBUG', false);
+
+
+// Absolute path to the WordPress directory
+if (!defined('ABSPATH')) {
+    define('ABSPATH', dirname(__FILE__) . '/');
 }
+
+// Try environment variable 'WP_ENV'
+if (getenv('WP_ENV') !== false) {
+    // Filter non-alphabetical characters for security
+    define('WP_ENV', preg_replace('/[^a-z]/', '', getenv('WP_ENV')));
+} 
+
+// Define site host
+if (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+    $hostname = $_SERVER['HTTP_X_FORWARDED_HOST'];
+} else {
+    $hostname = $_SERVER['HTTP_HOST'];
+}
+
+// If WordPress has been bootstrapped via WP-CLI detect environment from --env=<environment> argument
+if (PHP_SAPI == "cli" && defined('WP_CLI_ROOT')) {
+    foreach ($argv as $arg) {
+        if (preg_match('/--env=(.+)/', $arg, $m)) {
+            define('WP_ENV', $m[1]);
+        }
+    }
+	$hostname = "localhost";
+}
+
+// Filter
+$hostname = filter_var($hostname, FILTER_SANITIZE_STRING);
+
+// Try server hostname
+if (!defined('WP_ENV')) {
+    // Set environment based on hostname
+    include ABSPATH . '/wp-config.env.php';
+}
+
+// Are we in SSL mode?
+if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ||
+    (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
+    $protocol = 'https://';
+} else {
+    $protocol = 'http://';
+}
+
+// Load default config
+//include ABSPATH . '/wp-config.default.php';
+
+// Load config file for current environment
+include ABSPATH . '/wp-config.' . WP_ENV . '.php';
+
+// Define WordPress Site URLs if not already set in config files
+if (!defined('WP_SITEURL')) {
+    define('WP_SITEURL', $protocol . rtrim($hostname, '/'));
+}
+if (!defined('WP_HOME')) {
+    define('WP_HOME', $protocol . rtrim($hostname, '/'));
+}
+
+// Define W3 Total Cache hostname
+if (defined('WP_CACHE')) {
+    define('COOKIE_DOMAIN', $hostname);
+}
+
+// Clean up
+unset($hostname, $protocol);
+
+/** End of WordPress Multi-Environment Config **/
+
 
 /* That's all, stop editing! Happy blogging. */
-
-/** Absolute path to the WordPress directory. */
-if ( !defined('ABSPATH') )
-	define('ABSPATH', dirname(__FILE__) . '/');
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
