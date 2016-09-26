@@ -82,6 +82,19 @@ header{
 }
 
 
+.textarea{
+	background-color:white;
+	.text-center{
+	width:70%;
+	margin:auto;
+
+	p{
+		font-weight: 300;
+	}
+}
+}
+
+
 
 #single{
 	background-size:cover;
@@ -104,6 +117,8 @@ header{
 		bottom:0px;
 		top:0px;
 	}
+
+
 
 	.bot_textarea{
 		position:absolute;
@@ -163,6 +178,21 @@ header{
 		}
 	}
 
+}
+
+article{
+
+		height:100vh;
+	background-size:cover;
+	width: 100%;
+	position:relative;
+	.banner{
+		height:100vh;
+
+	}
+	.textarea{
+		margin-top:$headerHeight;
+	}
 }
 
 

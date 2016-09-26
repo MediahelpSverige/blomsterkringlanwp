@@ -77,6 +77,19 @@ header nav ul a {
   font-weight: 300;
 }
 
+.textarea {
+  background-color: white;
+}
+
+.textarea .text-center {
+  width: 70%;
+  margin: auto;
+}
+
+.textarea .text-center p {
+  font-weight: 300;
+}
+
 #single {
   background-size: cover;
   width: 100%;
@@ -155,6 +168,21 @@ header nav ul a {
   background-color: black;
 }
 
+article {
+  height: 100vh;
+  background-size: cover;
+  width: 100%;
+  position: relative;
+}
+
+article .banner {
+  height: 100vh;
+}
+
+article .textarea {
+  margin-top: 133px;
+}
+
 #frontpage {
   height: 100vh;
   background-size: cover;
@@ -164,9 +192,6 @@ header nav ul a {
 
 #frontpage .banner {
   height: 100vh;
-  width: 100%;
-  z-index: 9;
-  background-size: cover;
 }
 
 #frontpage .overlay {
