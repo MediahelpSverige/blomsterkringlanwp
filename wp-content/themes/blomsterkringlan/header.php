@@ -6,9 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url');?>/css/styles.css">
 	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url');?>/node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url');?>/node_modules/swiper/dist/css/swiper.min.css">
 		<script src="https://use.fontawesome.com/8e5b8fd17b.js"></script>
-		<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-		<script type="text/javascript" src="js/script.min.js"></script>
+		<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/node_modules/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/script.min.js"></script>
+		<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/bower_components/swiper/dist/js/swiper.js"></script>
 		<script src="https://use.typekit.net/mlk7lnw.js"></script>
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
 	<?php wp_head(); ?>

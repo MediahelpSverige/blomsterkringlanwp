@@ -188,7 +188,7 @@ article {
 }
 
 article .banner {
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 article .textarea {
@@ -205,21 +205,22 @@ article .map iframe {
 #frontpage {
   height: 100vh;
   background-size: cover;
-  width: 100%;
-  position: relative;
+  /* width: 100%; */
+  /* position: relative; */
 }
 
 #frontpage .banner {
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 #frontpage .overlay {
-  background-color: rgba(134, 143, 98, 0.2);
+  /* background-color: rgba(134, 143, 98, 0.2); */
   position: absolute;
   left: 0px;
   right: 0px;
   bottom: 0px;
   top: 0px;
+  z-index: 99;
 }
 
 #frontpage .bot_textarea {
@@ -318,4 +319,18 @@ body footer .container {
   flex-direction: row;
   padding: 30px 0px;
   justify-content: space-around;
+}
+
+.swiper-wrapper {
+    height: 100vh;
+}
+
+
+.swiper-container {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.swiper-slide{
+  height: 100vh
 }
