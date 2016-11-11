@@ -225,7 +225,8 @@ article .map iframe {
 
 #frontpage .bot_textarea {
   position: absolute;
-  bottom: 100px;
+  border-top: 5px solid #c6d299;
+  bottom: 150px;
   background-color: white;
   max-width: 900px;
   padding: 20px;
